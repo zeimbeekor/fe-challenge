@@ -1,15 +1,35 @@
 .container {
-  padding: 0 2rem;
+  padding: 0;
 }
-
+.titleWithAvatar {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 20px 0 20px 0;
+}
+.posts {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.post {
+  margin-bottom: 40px;
+}
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  background-color: #0070f3;
+  color: #eaeaea;
 }
 
 .footer {
@@ -112,5 +132,26 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+}
+
+.loader:empty {
+  position: fixed;
+  top: calc(50% - 4em);
+  left: calc(50% - 4em);
+  width: 6em;
+  height: 6em;
+  border: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1.1em solid #000000;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
