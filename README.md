@@ -40,6 +40,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <img src="public/screenshots/05.png" width="400"/>   <img src="public/screenshots/06.png" width="400"/>
 <img src="public/screenshots/07.png" width="400"/>   <img src="public/screenshots/08.png" width="400"/>
 
+## Videos
+
+<video width="320" height="240" controls>
+  <source src="public/videos/FEScreenRecordingZB.mp4" type="video/mp4">
+  <source src="public/videos/FEScreenRecordingZB.mov" type="video/mov">
+Your browser does not support the video tag.
+</video>
+
+Download: [MP4](https://github.com/zeimbeekor/go-dapr-gql-service/blob/master/public/videos/FEScreenRecordingZB.mp4) - [MOV](https://github.com/zeimbeekor/go-dapr-gql-service/blob/master/public/videos/FEScreenRecordingZB.mov)
+
 ## Contributing
 
 * [Alvaro Vega Plata](https://github.com/zeimbeekor)
