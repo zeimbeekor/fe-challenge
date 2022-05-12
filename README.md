@@ -48,7 +48,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 Your browser does not support the video tag.
 </video>
 
-Download: [MP4](https://github.com/zeimbeekor/go-dapr-gql-service/blob/master/public/videos/FEScreenRecordingZB.mp4) - [MOV](https://github.com/zeimbeekor/go-dapr-gql-service/blob/master/public/videos/FEScreenRecordingZB.mov)
+Download: [MP4](https://github.com/zeimbeekor/fe-challenge/tree/master/public/videos/FEScreenRecordingZB.mp4) - [MOV](https://github.com/zeimbeekor/fe-challenge/tree/master/public/videos/FEScreenRecordingZB.mov)
 
 ## Contributing
 
