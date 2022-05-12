@@ -1,89 +1,73 @@
 import styles from "../styles/Home.module.css";
 
-import Post from "./components/post";
-// import Users from "./components/user";
+import { Text } from "@nextui-org/react";
+
 import React, { useState, useEffect } from "react";
 
-import getPosts from  '../utils/posts_data'
-import getComments from  '../utils/comments_data'
-import getUsers from  '../utils/users_data'
+import Users from "./components/user";
+
+import { getUsers } from  '../utils/users'
 
 export default function Home() {
-  const [data, setData] = useState(null)
-  const [comments, setComments] = useState(null)
   const [users, setUser] = useState(null)
   const [isLoading, setLoading] = useState(false)
-  const [isLoadingComments, setLoadingComments] = useState(false)
-  const [isLoadingUsers, setLoadingUsers] = useState(false)
-
-  const loadPosts = () => {
-    setLoading(true)
-    getPosts()
-    .then((data) => {
-      console.debug('posts fetched', data)
-      setData(data)
-      setLoading(false)
-    })
-  }
-
-  const loadComments = () => {
-    setLoadingComments(true)
-    getComments()
-    .then((data) => {
-      console.debug('comments fetched', data)
-      setComments(data)
-      setLoadingComments(false)
-    })
-  }
 
   const loadUsers = () => {
-    setLoadingUsers(true)
+    setLoading(true)
     getUsers()
     .then((data) => {
       console.debug('users fetched', data)
       setUser(data)
-      setLoadingUsers(false)
+      setLoading(false)
     })
   }
 
   useEffect(() => {
-    loadPosts()
-    loadComments()
     loadUsers()
   }, [])
 
-  if (isLoading || isLoadingComments || isLoadingUsers) return <div className={styles.loader}></div>
+  if (isLoading) return <div className={styles.loader}></div>
 
-  if (!data) return <p>No data</p>
+  if (!users) return <p>No data</p>
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1> Welcome to Social Media Clone </h1>
+      <header className={styles.main2}>
+        <Text
+          h1
+          size={12}
+          css={{
+            textGradient: "45deg, $blue600 -20%, $pink600 50%",
+          }}
+          weight="bold"
+        >
+          Welcome to
+        </Text>
+        <Text
+          h1
+          size={30}
+          css={{
+            textGradient: "45deg, $purple600 -20%, $pink600 100%",
+          }}
+          weight="bold"
+        >
+          Social Media Clone
+        </Text>
+        <Text
+          h1
+          size={18}
+          css={{
+            textGradient: "45deg, $yellow600 -20%, $red600 100%",
+          }}
+          weight="bold"
+        >
+          Urth challenge intended for full stack developers
+        </Text>
       </header>
-      {/* <div>
+      <div>
         <Users
-          // key=''
           users={users}
         />
-      </div> */}
-      {/* <div>
-        <Users
-          // key=''
-          users={users}
-          posts={data}
-          comments={comments}
-        /> 
-      </div>*/}
-      <div className={styles.posts}>
-        {data.map((post) => (
-          <Post
-            key={post.id}
-            post={post}
-            comments={comments.filter((comment) => comment.postId === post.id)}
-            user={users.find((user) => user.id === post.userId)}
-          />
-        ))}
       </div>
     </div>
   );
