@@ -1,8 +1,67 @@
-import { Card, Collapse, Text, Avatar, Grid, Row, Col, Button, Spacer } from "@nextui-org/react";
-import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 
+import { Card, Collapse, Text, Avatar, Grid, Row, Col, Button, Spacer } from "@nextui-org/react";
+import Link from "next/link";
+
+import { useEffect, useState } from "react";
+
+import { getPostsWithCommentsByUserId } from  '../../utils/users'
+
+let oldPostType = ''
+
 function Post(props) {
+  const [profile, setProfile] = useState(null);
+  const [posts, setPosts] = useState(null);
+  const [postType, setPostType] = useState('');
+  const [isLoading, setLoading] = useState(true);
+
+  const loadData = () => {
+    setLoading(true)
+    const id = Number(window.location.pathname.split("/")[2]);
+    getPostsWithCommentsByUserId(id)
+    .then((data) => {
+      setPosts(data.posts)
+      setProfile(data)
+      setLoading(false)
+    })
+  }
+
+  const onAllPostsClick = () => {
+    setLoading(true)
+    profile.posts = posts
+    setPostType('')
+    setLoading(false)
+  }
+
+  const onStoryPostsClick = () => {
+    setLoading(true)
+    profile.posts = posts.filter((post) => post.type === 'story')
+    setPostType('story')
+    setLoading(false)
+  }
+
+  const onJobPostsClick = () => {
+    setLoading(true)
+    profile.posts = posts.filter((post) => post.type === 'job')
+    setPostType('job')
+    setLoading(false)
+  }
+
+  const onPollPostsClick = () => {
+    setLoading(true)
+    profile.posts = posts.filter((post) => post.type === 'poll')
+    setPostType('poll')
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    loadData()
+  }, []);
+
+  if (isLoading) return <div className={styles.loader}>is loading</div>;
+
+  if (!profile) return <p>No data</p>
+
   return (
     <Grid.Container gap={1}>
       <Grid>
@@ -11,7 +70,7 @@ function Post(props) {
             <Row>
               <Col>
                 <Text b color="orange" size={12}>
-                  {props.user.posts.length + " Posts"}
+                  {profile.posts.length + " Posts"}
                 </Text>
               </Col>
             </Row>
@@ -19,10 +78,13 @@ function Post(props) {
           <Col>
             <Row justify="flex-end">
               <Button
-                flat
+                // flat
                 auto
+                ghost
                 rounded
-                css={{ color: "white", bg: "orange" }}
+                color="warning"
+                css={ postType == '' ? {color: "white", bg: "orange" } : {}}
+                onPress={onAllPostsClick}
               >
                 <Text
                   css={{ color: "inherit" }}
@@ -35,10 +97,13 @@ function Post(props) {
               </Button>
               <Spacer x={0.3} />
               <Button
-                flat
+                // flat
                 auto
+                ghost
                 rounded
-                css={{ color: "white", bg: "orange" }}
+                color="warning"
+                // css={{ color: "white", bg: "orange" }}
+                onPress={onStoryPostsClick}
               >
                 <Text
                   css={{ color: "inherit" }}
@@ -51,10 +116,13 @@ function Post(props) {
               </Button>
               <Spacer x={0.3} />
               <Button
-                flat
+                // flat
                 auto
+                ghost
                 rounded
-                css={{ color: "white", bg: "orange" }}
+                color="warning"
+                // css={{ color: "white", bg: "orange" }}
+                onPress={onJobPostsClick}
               >
                 <Text
                   css={{ color: "inherit" }}
@@ -67,10 +135,13 @@ function Post(props) {
               </Button>
               <Spacer x={0.3} />
               <Button
-                flat
+                // flat
                 auto
+                ghost
                 rounded
-                css={{ color: "white", bg: "orange" }}
+                color="warning"
+                // css={{ color: "white", bg: "orange" }}
+                onPress={onPollPostsClick}
               >
                 <Text
                   css={{ color: "inherit" }}
@@ -85,16 +156,16 @@ function Post(props) {
           </Col>
         </Row>
         <Spacer y={0.5} />
-        {props.user.posts.map((post) => (
+        {profile.posts.map((post) => (
         <Grid.Container gap={0.5}>
           <Grid>
             <Card hoverable shadow={false} css={{ mw: "600px", mb: "20px" }}>
               <div className={styles.titleWithAvatar}>
-                <Link href={`/profiles/${props.user.id}`}>
+                <Link href={`/profiles/${profile.id}`}>
                   <Avatar
-                    text={props.user.username}
+                    text={profile.username}
                     size="lg"
-                    src={props.user.photo}
+                    src={profile.photo}
                     color="secondary"
                     bordered
                     squared

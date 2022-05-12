@@ -18,7 +18,6 @@ function Profile() {
     const id = Number(window.location.pathname.split("/")[2]);
     getPostsWithCommentsByUserId(id)
     .then((data) => {
-      console.log('getPostsWithCommentsByUserId fetched', data)
       setProfile(data)
       setLoading(false)
     })
